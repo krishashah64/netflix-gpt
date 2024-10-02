@@ -1,7 +1,20 @@
+import userEvent from "@testing-library/user-event";
+import Header from "./Header";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
+
 const Browse = () => {
+
+    //fetch data from tmdb api and update the store
+    useNowPlayingMovies();
+
     return(
+        // <div >
         <div >
-            Browse
+            <Header />
+            <MainContainer />
+            <SecondaryContainer />
         </div>
     );
 };
