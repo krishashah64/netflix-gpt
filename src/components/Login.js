@@ -6,6 +6,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { USER_AVATAR } from "../utils/constant";
+import { bgURL } from "../utils/constant";
 
 const Login = () => {
 
@@ -93,9 +94,9 @@ const Login = () => {
     return(
         // <div className="h-screen">
         <div className="relative h-screen overflow-hidden">
-           <div className="absolute w-full">
+           <div className="absolute">
                 <img 
-                    src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg" 
+                    src={bgURL} 
                     alt=""
                     // style={{ width: "100vw", height: "auto" }}
                     className="w-full h-full object-cover" 

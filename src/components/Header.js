@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO, USER_AVATAR } from "../utils/constant";
+import { LOGO, SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constant";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 
 const Header = () => {
@@ -14,6 +16,8 @@ const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((store) => store.user);
+    const showGptSearch = useSelector(store => store.gpt.showGptSearch); 
+
 
     const handleLogout = () => {
 
@@ -54,6 +58,14 @@ const Header = () => {
 
 
         }, []);
+        
+        const handleGptSearchCLick = () => {
+            dispatch(toggleGptSearchView());
+        }
+
+        const handleLanguageChange = (e) => {
+            dispatch(changeLanguage(e.target.value))
+        }
     
 
 
@@ -67,14 +79,27 @@ const Header = () => {
                 />
 
                {user && (
+
                     <div className="flex p-4 text-white">
-                    <img
-                        className="w-10 h-10"
-                        // src={USER_AVATAR}
-                        src={user.photoURL}
-                        alt="User"
-                    /> 
-                    <button className="p-1" type="submit" onClick={handleLogout}>Sign out</button>
+                         {showGptSearch && <select className="text-white bg-gray-900 p-2" onChange={handleLanguageChange}>
+                            {SUPPORTED_LANGUAGES.map((lang) => (
+                                    <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>
+                                ))}
+                        </select>}
+                           
+                        <button 
+                            className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-md" 
+                            onClick={handleGptSearchCLick}
+                        >
+                           {!showGptSearch ? "GPT search" : "Home Page"}
+                        </button>
+                        <img
+                            className="w-10 h-10"
+                            // src={USER_AVATAR}
+                            src={user.photoURL}
+                            alt="User"
+                        /> 
+                        <button className="p-1" type="submit" onClick={handleLogout}>Sign out</button>
                     </div>
                 )}
                 
