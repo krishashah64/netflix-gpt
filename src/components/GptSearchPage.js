@@ -6,12 +6,12 @@ import { bgURL } from '../utils/constant'
 const GptSearchPage = () => {
   return (
     <div>
-         <div className="absolute w-full -z-10">
+         <div className="fixed w-full -z-10">
                 <img 
                     src= {bgURL}
                     alt=""
                     // style={{ width: "100vw", height: "auto" }}
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover bg-gradient-to-b from-black" 
                 /> 
             </div>
         <GptSearchBar />
